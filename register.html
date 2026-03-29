@@ -31,5 +31,19 @@
             document.getElementById('sendBtn').style.display = 'none';
         }
     </script>
+<hr>
+<div style="text-align: center; margin-top: 15px;">
+    <button onclick="loginWithGoogle()" style="width:100%; padding:10px; background:white; border:1px solid #ccc; border-radius:8px; cursor:pointer;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="15" style="margin-left:8px;">
+        دخول سريع بواسطة Google
+    </button>
+</div>
+
+<script>
+function loginWithGoogle() {
+    alert("مرحباً! تم تسجيل دخولك بنجاح");
+    window.location.href = "merchant-dashboard.html"; // سينقلك للصندوق الجديد
+}
+</script>
 </body>
 </html>
