@@ -2,48 +2,54 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>ShipLink | دخول</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - ShipLink Libya</title>
     <style>
-        body { font-family: sans-serif; background: #003366; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 40px; border-radius: 20px; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .btn { width: 100%; padding: 12px; background: #f2a900; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: #003366; font-size: 16px; }
-        #otp-section { display: none; margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 15px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #003366; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: #333; }
+        .login-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 90%; max-width: 400px; text-align: center; }
+        h2 { color: #003366; margin-bottom: 25px; }
+        .user-type-btn { width: 100%; padding: 15px; margin-bottom: 15px; border: 2px solid #eee; border-radius: 10px; background: white; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; }
+        .user-type-btn:hover { border-color: #f39c12; background: #fffdf9; }
+        .google-btn { background: #4285F4; color: white; border: none; width: 100%; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; margin-top: 10px; display: flex; align-items: center; justify-content: center; }
+        .google-btn img { margin-left: 10px; width: 20px; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2 style="color:#003366">تسجيل الدخول</h2>
-        <input type="tel" id="phone" placeholder="رقم الهاتف (09XXXXXXXX)">
-        <button class="btn" id="sendBtn" onclick="showOTP()">إرسال رمز التأكيد (SMS)</button>
+    <div class="login-card">
+        <h2>مرحباً بك في ShipLink</h2>
+        <p>يرجى اختيار نوع الحساب للدخول</p>
         
-        <div id="otp-section">
-            <p style="font-size:12px; color:red">تم إرسال رمز مكون من 4 أرقام لهاتفك</p>
-            <input type="text" placeholder="أدخل الرمز (مثال: 1234)">
-            <button class="btn" onclick="location.href='invoice.html'">تأكيد والدخول للمنصة</button>
+        <button class="user-type-btn" onclick="selectType('merchant')">
+            📦 أنا تاجر (إرسال شحنات)
+        </button>
+        
+        <button class="user-type-btn" onclick="selectType('company')">
+            🚚 أنا شركة شحن (تقديم أسعار)
+        </button>
+
+        <div id="google-section" style="display:none;">
+            <hr>
+            <button class="google-btn" onclick="processLogin()">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg">
+                متابعة بواسطة Google
+            </button>
         </div>
     </div>
+
     <script>
-        function showOTP() {
-            var ph = document.getElementById('phone').value;
-            if(ph.length < 10) { alert("أدخل رقم هاتف صحيح"); return; }
-            document.getElementById('otp-section').style.display = 'block';
-            document.getElementById('sendBtn').style.display = 'none';
+        let selectedRole = '';
+        function selectType(role) {
+            selectedRole = role;
+            document.querySelectorAll('.user-type-btn').forEach(btn => btn.style.borderColor = '#eee');
+            event.currentTarget.style.borderColor = '#f39c12';
+            document.getElementById('google-section').style.display = 'block';
+        }
+
+        function processLogin() {
+            localStorage.setItem('userRole', selectedRole);
+            alert("تم تسجيل الدخول بنجاح كـ " + (selectedRole === 'merchant' ? 'تاجر' : 'شركة'));
+            window.location.href = selectedRole === 'merchant' ? "merchant-dashboard.html" : "company-dashboard.html";
         }
     </script>
-<hr>
-<div style="text-align: center; margin-top: 15px;">
-    <button onclick="loginWithGoogle()" style="width:100%; padding:10px; background:white; border:1px solid #ccc; border-radius:8px; cursor:pointer;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="15" style="margin-left:8px;">
-        دخول سريع بواسطة Google
-    </button>
-</div>
-
-<script>
-function loginWithGoogle() {
-    alert("مرحباً! تم تسجيل دخولك بنجاح");
-    window.location.href = "merchant-dashboard.html"; // سينقلك للصندوق الجديد
-}
-</script>
 </body>
 </html>
