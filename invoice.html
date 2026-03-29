@@ -64,5 +64,17 @@
             window.open("https://wa.me/?text=" + msg, '_blank');
         }
     </script>
+<div id="companyBox" style="display:none; margin-top:30px; border:2px solid #007bff; padding:15px; border-radius:10px; background:#f0faff;">
+    <h4>🛠️ لوحة تسعير الشركة</h4>
+    <input type="number" id="priceInput" placeholder="ضع سعرك هنا..." style="width:100%; padding:10px; margin-bottom:10px;">
+    <button onclick="alert('تم إرسال السعر للتاجر بنجاح!')" style="width:100%; background:#28a745; color:white; border:none; padding:10px; border-radius:5px;">إرسال التسعيرة</button>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+if(params.get('role') === 'company') {
+    document.getElementById('companyBox').style.display = 'block';
+}
+</script>
 </body>
 </html>
