@@ -1,27 +1,21 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>لوحة الشركة - ShipLink</title>
-    <style>
-        body { font-family: sans-serif; background: #f4f7f6; padding: 20px; }
-        .header { background: #28a745; color: white; padding: 20px; border-radius: 10px; }
-        .order-card { background: white; padding: 15px; border-radius: 10px; margin-top: 15px; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h2>لوحة تحكم شركة الشحن 🚚</h2>
-    </div>
+<script>
+async function loadOrders() {
+    const res = await fetch('https://sheetdb.io/api/v1/6tgmyzwsdvocc?sheet=Sheet1');
+    const orders = await res.json();
+    const container = document.getElementById('ordersContainer');
+    container.innerHTML = "";
 
-    <div class="orders">
-        <h3>📦 شحنات بانتظار تسعيرك:</h3>
-        <div class="order-card">
-            <strong>تاجر: ملابس السرايا</strong>
-            <p>الوجهة: بنغازي | الوزن: 10kg</p>
-            <input type="number" placeholder="ضع سعرك هنا...">
-            <button style="background:#28a745; color:white; border:none; padding:5px 10px;">إرسال السعر</button>
-        </div>
-    </div>
-</body>
-</html>
+    orders.forEach(order => {
+        if(order.status === "بانتظار التسعير") {
+            container.innerHTML += `
+                <div style="border:1px solid #ddd; padding:15px; margin-bottom:10px; background:white; border-radius:10px;">
+                    <strong>التاجر: ${order.store_name}</strong>
+                    <p>الوجهة: ${order.location} | الوزن: ${order.weight}</p>
+                    <input type="number" id="p-${order.id}" placeholder="أدخل السعر">
+                    <button onclick="submitPrice('${order.id}')">إرسال السعر للتاجر</button>
+                </div>`;
+        }
+    });
+}
+loadOrders();
+</script>
