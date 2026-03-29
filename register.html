@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ShipLink | دخول</title>
+    <style>
+        body { font-family: sans-serif; background: #003366; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 40px; border-radius: 20px; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 12px; background: #f2a900; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: #003366; font-size: 16px; }
+        #otp-section { display: none; margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2 style="color:#003366">تسجيل الدخول</h2>
+        <input type="tel" id="phone" placeholder="رقم الهاتف (09XXXXXXXX)">
+        <button class="btn" id="sendBtn" onclick="showOTP()">إرسال رمز التأكيد (SMS)</button>
+        
+        <div id="otp-section">
+            <p style="font-size:12px; color:red">تم إرسال رمز مكون من 4 أرقام لهاتفك</p>
+            <input type="text" placeholder="أدخل الرمز (مثال: 1234)">
+            <button class="btn" onclick="location.href='invoice.html'">تأكيد والدخول للمنصة</button>
+        </div>
+    </div>
+    <script>
+        function showOTP() {
+            var ph = document.getElementById('phone').value;
+            if(ph.length < 10) { alert("أدخل رقم هاتف صحيح"); return; }
+            document.getElementById('otp-section').style.display = 'block';
+            document.getElementById('sendBtn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
